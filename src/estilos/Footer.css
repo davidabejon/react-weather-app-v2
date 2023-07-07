@@ -1,0 +1,17 @@
+footer {
+    background-color: rgba(255, 255, 255, 0.2);
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+footer p {
+    margin: 0 1rem 0 1rem;
+}
+
+footer a {
+    color: white;
+    transition: all .2s;
+}
+footer a:hover {
+    color: #d1d1d1;
+    transition: all .2s;
+}
