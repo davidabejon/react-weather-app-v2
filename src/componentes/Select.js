@@ -5,6 +5,7 @@ function Select(props) {
     const handleChange = (e) => {
         const value = document.getElementById("selectProvincia").value;
         if (value !== "") {
+            props.setCargando(true);
             props.consultarApiCiudades(value);
             props.consultarApiToday(value);
             props.consultarApiTomorrow(value);

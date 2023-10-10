@@ -1,5 +1,6 @@
 import '../estilos/Vista.css'
 import Card from "./Card";
+import Loading from './Loading';
 import Pronostico from './Pronostico';
 import Select from "./Select";
 import React, { useEffect, useState } from 'react'
@@ -59,30 +60,38 @@ function Vista(props) {
                 consultarApiTomorrow={consultarApiTomorrow}
                 consultarApiTitulo={consultarApiTitulo}
                 setTitulo={props.setTitulo}
+                setCargando={props.setCargando}
             />
 
-            {ciudades.length === 0 ? '' :
-                <React.Fragment>
-                    <Pronostico today={today} tomorrow={tomorrow} />
-                    <h3 className='text-center'>Información sobre ciudades principales</h3>
-                    <hr className='mb-3' />
-                </React.Fragment>
+            {
+                props.cargando ? 
+                <div className='d-flex justify-content-center align-items-center'><Loading /></div>
+                :
+                <>
+                    {ciudades.length === 0 ? '' :
+                        <React.Fragment>
+                            <Pronostico today={today} tomorrow={tomorrow} />
+                            <h3 className='text-center'>Información sobre ciudades principales</h3>
+                            <hr className='mb-3' />
+                        </React.Fragment>
+                    }
+                    
+                    
+                    <div className="d-flex gap-2 flex-wrap justify-content-center">
+                        {ciudades.map(ciudad => {
+                            return (
+                                <Card
+                                    key={ciudad.id}
+                                    nombre={ciudad.name}
+                                    descripcion={ciudad.stateSky.description}
+                                    max={ciudad.temperatures.max}
+                                    min={ciudad.temperatures.min}
+                                />
+                            );
+                        })}
+                    </div>
+                </>
             }
-            
-            
-            <div className="d-flex gap-2 flex-wrap justify-content-center">
-                {ciudades.map(ciudad => {
-                    return (
-                        <Card
-                            key={ciudad.id}
-                            nombre={ciudad.name}
-                            descripcion={ciudad.stateSky.description}
-                            max={ciudad.temperatures.max}
-                            min={ciudad.temperatures.min}
-                        />
-                    );
-                })}
-            </div>
         </React.Fragment>
     );
 }

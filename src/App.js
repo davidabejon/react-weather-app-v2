@@ -1,11 +1,17 @@
 import './App.css';
 import Footer from './componentes/Footer';
 import Vista from './componentes/Vista'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function App() {
 
-  const [titulo, setTitulo] = useState('')
+  const [titulo, setTitulo] = useState('');
+  const [cargando, setCargando] = useState(false);
+
+  useEffect(() => {
+    setCargando(false);
+  }, [titulo]);
+  
 
   return (
     <React.Fragment>
@@ -14,6 +20,8 @@ function App() {
       <div className="container">
         <Vista
           setTitulo={setTitulo}
+          cargando={cargando}
+          setCargando={setCargando}
         />
       </div>
       <Footer />
